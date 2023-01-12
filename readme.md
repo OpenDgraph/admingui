@@ -18,6 +18,20 @@ When the user performs any of the functions in the GUI, a text field will appear
 ## Dev
 
 Run the following commands to setup the development environment:
+
 pipreqs.
 
 pip install -r requirements.txt
+
+### Run
+
+To execute the code:
+
+* Make sure you have the necessary dependencies installed.
+* Run `py .` in the command line in the root directory of the project.
+* You can also set arguments and pass default values as command line arguments. You can check the available args using `py . -h`.
+
+e.g.
+```
+py . --hostname http://localhost:8080/admin --username lucas --password password
+```
