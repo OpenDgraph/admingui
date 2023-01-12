@@ -20,7 +20,16 @@ class MakeCall:
             tree.pop(0)
         final = list(filter(None, tree))
 
-        rungql = RunDQL(self.addr, 200, self.headers)
+        try:
+            rungql = RunDQL(self.addr, 200, self.headers)
+        except NameError:
+            error = f"Something else went wrong: {NameError}"
+            self.insert_text_event(error)
+        except Exception as e:
+            error = f"Something else went wrong: {e}"
+            self.insert_text_event(error)
+
+        
 
         if "mutation" not in self.query:
             run_dql = rungql.run_query(self.query)

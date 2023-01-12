@@ -1,10 +1,14 @@
 def separators_constructor(data, response=None):
-    print("separators_constructor data", data)
     _response = ""
-    if "errors" in data:
+    if "errors" in str(data):
         _response = "------------------      Error      ------------------\n"
         _response += f"{data['errors'][0]['message']}\n"
         _response += "------------------ End of Error ------------------\n"
+    elif "exceeded" in str(data):
+        _response = "------------------      Error      ------------------\n"
+        _response += f"{data}\n"
+        _response += "------------------ End of Error ------------------\n"
+        _response += "This usually means that the Cluster is not locally accessible.\n"
     else:
         endTime = data[0]['extensions']['tracing']['endTime']
         duration = data[0]['extensions']['tracing']['duration']

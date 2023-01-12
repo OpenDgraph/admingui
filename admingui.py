@@ -159,8 +159,7 @@ class App(customtkinter.CTk):
             _response = separators_constructor(payload[0])
             self.line_break(_response)
             return
-        elif "wrong" in payload:  # payload != [] and
-
+        elif "wrong" in payload:
             _response = separators_constructor(payload)
             self.line_break(_response)
             return
@@ -173,13 +172,10 @@ class App(customtkinter.CTk):
             pattern = r"\'{}\': (.*?),".format(myList[ii])
             matches = re.findall(pattern, str(payload[0]))
             response += "---\n"
-            print("matches", matches)
             if len(matches) > 0:
                 for i in range(len(matches)):
                     response += f"{myList[ii]}: {matches[i].replace('}','').replace('{','').replace('[','').replace(']','')}\n"
-                    print("(matches)", matches[i])
                     continue
-                print("response insert_text_event", response)
 
         _response = separators_constructor(payload, response)
 
