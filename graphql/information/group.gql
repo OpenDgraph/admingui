@@ -1,0 +1,8 @@
+{
+  queryGroup(filter: {name:{eq: "guardians"} or :{name: {eq: "default"}}}){
+    name
+    users {
+      name
+    }
+  }
+}

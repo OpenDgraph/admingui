@@ -1,0 +1,8 @@
+mutation  {
+  removeNode(input: {nodeId: "0x1", groupId: "0x1"}){
+    response{
+      code
+      message
+    }
+  }
+}

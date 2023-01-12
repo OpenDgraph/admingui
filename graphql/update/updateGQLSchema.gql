@@ -1,0 +1,9 @@
+mutation {
+  updateGQLSchema(input: { set: { schema: "" } }) {
+    gqlSchema {
+      id
+      schema
+      generatedSchema
+    }
+  }
+}

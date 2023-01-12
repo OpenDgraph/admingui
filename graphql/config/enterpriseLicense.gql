@@ -1,0 +1,8 @@
+mutation {
+  enterpriseLicense(input: { license: "" }) {
+    response {
+      code
+      message
+    }
+  }
+}

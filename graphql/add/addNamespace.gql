@@ -1,0 +1,6 @@
+mutation {
+  addNamespace(input: { password: "" }) {
+    namespaceId
+    message
+  }
+}

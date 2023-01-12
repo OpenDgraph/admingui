@@ -1,0 +1,30 @@
+query{
+  state{
+    license {
+      user
+      maxNodes
+      enabled
+      expiryTs
+    }
+    counter
+    maxUID
+    maxNsID
+    maxTxnTs
+    maxRaftId
+    cid
+    namespaces
+    groups {
+      id
+      members{
+        id
+        groupId
+        addr
+        leader
+        amDead
+        lastUpdate
+        clusterInfoOnly
+        forceGroupId
+      }
+    }
+  }
+}

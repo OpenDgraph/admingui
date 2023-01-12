@@ -1,0 +1,13 @@
+mutation {
+  deleteGroup(
+    filter: {
+      name: { eq: "" }
+      and: { name: { eq: "" } }
+      or: { name: { eq: "" } }
+      not: { name: { eq: "" } }
+    }
+  ) {
+    msg
+    numUids
+  }
+}

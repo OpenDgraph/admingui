@@ -1,0 +1,14 @@
+mutation {
+  addGroup(input: { name: "", rules: { permission: 1, predicate: "" } }) {
+    group {
+      name
+      users {
+        name
+      }
+      rules {
+        predicate
+        permission
+      }
+    }
+  }
+}

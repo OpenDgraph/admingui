@@ -1,0 +1,17 @@
+mutation ($input:[AddUserInput!]!) {
+  addUser(input: $input) {
+    user {
+      name
+      groups {
+        name
+        users {
+          name
+        }
+        rules {
+          predicate
+          permission
+        }
+      }
+    }
+  }
+}

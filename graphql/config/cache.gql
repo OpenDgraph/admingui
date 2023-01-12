@@ -1,0 +1,8 @@
+mutation ($input: ConfigInput!) {
+  config(input: { cacheMb: 1.9 }) {
+    response {
+      code
+      message
+    }
+  }
+}

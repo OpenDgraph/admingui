@@ -1,0 +1,18 @@
+mutation {
+  updateUser(
+    input: {
+      filter: {
+        name: { eq: "" }
+        and: { name: { eq: "" } }
+        or: { name: { eq: "" } }
+        not: { name: { eq: "" } }
+      }
+      set: { password: "", groups: { name: "" } }
+      remove: { password: "", groups: { name: "" } }
+    }
+  ) {
+    user {
+      name
+    }
+  }
+}

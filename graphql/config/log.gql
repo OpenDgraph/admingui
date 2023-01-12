@@ -1,0 +1,8 @@
+mutation ($input: ConfigInput!) {
+  config(input: $input) {
+    response {
+      code
+      message
+    }
+  }
+}

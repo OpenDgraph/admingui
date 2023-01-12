@@ -1,0 +1,18 @@
+mutation {
+  updateGroup(
+    input: {
+      filter: {
+        name: { eq: "" }
+        and: { name: { eq: "" } }
+        or: { name: { eq: "" } }
+        not: { name: { eq: "" } }
+      }
+      set: { rules: { predicate: "", permission: 1 } }
+      remove: { rules: "" }
+    }
+  ) {
+    group {
+      name
+    }
+  }
+}
