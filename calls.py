@@ -29,8 +29,6 @@ class MakeCall:
             error = f"Something else went wrong: {e}"
             self.insert_text_event(error)
 
-        
-
         if "mutation" not in self.query:
             run_dql = rungql.run_query(self.query)
         else:

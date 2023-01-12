@@ -1,6 +1,5 @@
 import customtkinter
 from PIL import Image
-import os
 import calls
 import re
 import arguments as _args
