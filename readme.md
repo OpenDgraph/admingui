@@ -1,5 +1,7 @@
 # AdminGUI
 
+![gui](images/gui.png)
+
 AdminGUI is a Graphical User Interface (GUI) for executing procedures on a Dgraph cluster. It allows users to perform the following actions:
 
 * **Group management**: Create, update, and delete groups for the Dgraph system's Access Control List (ACL).
