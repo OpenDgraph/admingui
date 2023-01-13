@@ -38,6 +38,6 @@ class MakeCall:
                 self.query = self.query.replace(
                     "XXXX", str(args.arguments.password))
                 self.query = self.query.replace("RRRR", "")
-            run_dql = rungql.run_mutation(self.query, self.variables)
+            run_dql = rungql.run_query(self.query, self.variables)
 
         return [run_dql, final]
