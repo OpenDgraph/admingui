@@ -1,3 +1,7 @@
+import pyperclip
+import arguments as _args
+
+
 def separators_constructor(data, response=None):
     _response = ""
     if "errors" in str(data):
@@ -20,3 +24,8 @@ def separators_constructor(data, response=None):
     if "Unauthenticated" in str(data) or "PermissionDenied" in str(data):
         _response += "Try to login in the login tab\n"
     return _response
+
+
+def copy_to_clipboard():
+    if _args.arguments.token is not None:
+        pyperclip.copy(_args.arguments.token)

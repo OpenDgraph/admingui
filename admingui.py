@@ -3,7 +3,7 @@ from PIL import Image
 import calls
 import re
 import arguments as _args
-from utils import separators_constructor
+from utils import separators_constructor,copy_to_clipboard
 
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("blue")
@@ -30,6 +30,11 @@ class App(customtkinter.CTk):
         self.textbox_button = customtkinter.CTkButton(self.textbox, text="Clean logs",
                                                       command=self.clean_text_event)
         self.textbox_button.grid(row=3, column=0, padx=20, pady=(10, 10))
+
+        self.textbox_button = customtkinter.CTkButton(self.textbox, text="JWT to Clipboard",
+                                                      command=copy_to_clipboard)
+        self.textbox_button.grid(row=3, column=1, padx=5, pady=(5, 5))
+        self.textbox_button.configure(state="disabled")
 
         # create url entry
         self.url_entry = customtkinter.CTkEntry(
@@ -116,6 +121,7 @@ class App(customtkinter.CTk):
         self.username_entry.delete(0, "end")
         self.password_entry.delete(0, "end")
         _args.arguments.token = None
+        self.textbox_button.configure(state="disabled")
 
     def set_groot(self):
         self.username_entry.delete(0, "end")
@@ -140,6 +146,7 @@ class App(customtkinter.CTk):
         if "errors" not in request[0]:
             _args.arguments.token = str(request[0]["data"]
                                         ["login"]["response"]["accessJWT"])
+            self.textbox_button.configure(state="normal")
 
         self.insert_text_event(request)
 
