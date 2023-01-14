@@ -1,0 +1,23 @@
+mutation {
+  restore(
+    input: {
+      location: ""
+      backupId: ""
+      backupNum: 1
+      encryptionKeyFile: ""
+      vaultAddr:""
+      vaultRoleIDFile:""
+      vaultSecretIDFile: ""
+      vaultPath:""
+      vaultField: ""
+      vaultFormat: ""
+      accessKey: ""
+      secretKey: ""
+      sessionToken: ""
+      anonymous: false
+    }
+  ) {
+    code
+    message
+  }
+}

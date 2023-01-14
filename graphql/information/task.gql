@@ -1,0 +1,7 @@
+{
+  task(input: {id:""}){
+    kind
+    status
+    lastUpdated
+  }
+}

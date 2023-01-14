@@ -1,0 +1,12 @@
+{
+  getUser(name: ""){
+    name
+    groups {
+      name
+      rules {
+        predicate
+        permission
+      }
+    }
+  }
+}

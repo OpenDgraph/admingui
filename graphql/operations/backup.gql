@@ -1,0 +1,18 @@
+mutation {
+  backup(
+    input: {
+      destination: ""
+      accessKey: ""
+      secretKey: ""
+      sessionToken: ""
+      anonymous: false
+      forceFull: false
+    }
+  ) {
+    response {
+      code
+      message
+    }
+    taskId
+  }
+}

@@ -1,0 +1,8 @@
+mutation {
+  draining(enable: true){
+    response {
+      code
+      message
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  queryGroup(filter: {name: {eq: "guardians"}}) {
+    name
+    users {
+      name
+    }
+    rules {
+      predicate
+      permission
+    }
+  }
+}

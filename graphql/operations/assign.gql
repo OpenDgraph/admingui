@@ -1,0 +1,11 @@
+mutation {
+  #num: UInt64! How many to assign.
+  #what = UID TIMESTAMP NAMESPACE_ID
+  assign(input: { what: UID, num: "" }) {
+    response {
+      startId
+      endId
+      readOnly
+    }
+  }
+}

@@ -1,0 +1,8 @@
+mutation {
+  moveTablet(input: { namespace: 1, tablet: "", groupId: "" }) {
+    response {
+      code
+      message
+    }
+  }
+}

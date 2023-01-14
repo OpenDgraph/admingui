@@ -1,0 +1,14 @@
+{
+  listBackups(input: {location: "",  accessKey: "", secretKey: "", sessionToken: "", anonymous: false}){
+    backupId
+    backupNum
+    encrypted
+    groups {
+      groupId
+      predicates
+    }
+    path
+    since
+    type
+  }
+}

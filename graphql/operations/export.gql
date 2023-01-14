@@ -1,0 +1,19 @@
+mutation {
+  export(
+    input: {
+      format: ""
+      namespace: 1
+      destination: ""
+      accessKey: ""
+      secretKey: ""
+      sessionToken: ""
+      anonymous: false
+    }
+  ) {
+    exportedFiles
+    response {
+      code
+      message
+    }
+  }
+}

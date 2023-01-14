@@ -1,0 +1,14 @@
+{
+  health{
+    instance
+    address
+    status
+    group
+    version
+    uptime
+    lastEcho
+    ongoing
+    indexing
+    ee_features
+  }
+}
