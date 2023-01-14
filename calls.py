@@ -16,10 +16,10 @@ class MakeCall:
         for i in range(len(tree)):
             tree[i] = tree[i].replace('\n', '').replace(
                 ' ', '').replace('}', '').replace('{', '')
-        for i in range(3):
-            tree.pop(0)
-        final = list(filter(None, tree))
-
+        tree = list(filter(None, tree))
+        if len(tree) > 2:
+            while "input" in tree[0] or "filter" in tree[0] or tree[0].endswith(")"):
+                tree.pop(0)
         try:
             rungql = RunDQL(self.addr, 200, self.headers)
         except NameError:
@@ -28,7 +28,6 @@ class MakeCall:
         except Exception as e:
             error = f"Something else went wrong: {e}"
             self.insert_text_event(error)
-
         if "mutation" not in self.query:
             run_dql = rungql.run_query(self.query)
         else:
@@ -40,4 +39,4 @@ class MakeCall:
                 self.query = self.query.replace("RRRR", "")
             run_dql = rungql.run_query(self.query, self.variables)
 
-        return [run_dql, final]
+        return [run_dql, tree]

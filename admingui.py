@@ -3,7 +3,7 @@ from PIL import Image
 import calls
 import re
 import arguments as _args
-from utils import separators_constructor,copy_to_clipboard
+from utils import separators_constructor, copy_to_clipboard
 
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("blue")
@@ -28,11 +28,11 @@ class App(customtkinter.CTk):
             10, 0), pady=(20, 0), sticky="nsew")
 
         self.clean_button = customtkinter.CTkButton(self.textbox, text="Clean logs",
-                                                      command=self.clean_text_event)
+                                                    command=self.clean_text_event)
         self.clean_button.grid(row=3, column=0, padx=20, pady=(10, 10))
 
         self.JWT_button = customtkinter.CTkButton(self.textbox, text="JWT to Clipboard",
-                                                      command=copy_to_clipboard)
+                                                  command=copy_to_clipboard)
         self.JWT_button.grid(row=3, column=0, padx=5, pady=(5, 5), sticky="e")
         self.JWT_button.configure(state="disabled")
 
@@ -73,6 +73,10 @@ class App(customtkinter.CTk):
         self.queryGroup = customtkinter.CTkButton(self.tabview.tab("Info"), text="Show users in groups",
                                                   command=self.groupRequest)
         self.queryGroup.grid(row=4, column=0, padx=20, pady=(10, 10))
+
+        self.config = customtkinter.CTkButton(self.tabview.tab("Info"), text="Show config",
+                                              command=self.configRequest)
+        self.config.grid(row=5, column=0, padx=20, pady=(10, 10))
 
         self.label_tab_2 = customtkinter.CTkLabel(self.tabview.tab(
             "Operations"), text="CTkLabel on Tab Operations")
@@ -235,6 +239,19 @@ class App(customtkinter.CTk):
         try:
             request = calls.MakeCall(
                 path="information/group", addr=self.addr).make_call()
+            self.insert_text_event(request)
+
+        except NameError:
+            error = f"Something else went wrong: {NameError}"
+            self.insert_text_event(error)
+        except Exception as e:
+            error = f"Something else went wrong: {e}"
+            self.insert_text_event(error)
+
+    def configRequest(self):
+        try:
+            request = calls.MakeCall(
+                path="information/config", addr=self.addr).make_call()
             self.insert_text_event(request)
 
         except NameError:
