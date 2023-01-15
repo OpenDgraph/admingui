@@ -126,6 +126,7 @@ class App(customtkinter.CTk):
         self.password_entry.delete(0, "end")
         _args.arguments.token = None
         self.JWT_button.configure(state="disabled")
+        self.JWT_button.configure(fg_color="grey")
 
     def set_groot(self):
         self.username_entry.delete(0, "end")
@@ -151,6 +152,7 @@ class App(customtkinter.CTk):
             _args.arguments.token = str(request[0]["data"]
                                         ["login"]["response"]["accessJWT"])
             self.JWT_button.configure(state="normal")
+            self.JWT_button.configure(fg_color="green")
 
         self.insert_text_event(request)
 
@@ -181,7 +183,7 @@ class App(customtkinter.CTk):
         for ii in range(len(myList)):
             pattern = r"\'{}\': (.*?),".format(myList[ii])
             matches = re.findall(pattern, str(payload[0]))
-            response += "---\n"
+            response += "——————————————\n"
             if len(matches) > 0:
                 for i in range(len(matches)):
                     response += f"{myList[ii]}: {matches[i].replace('}','').replace('{','').replace('[','').replace(']','')}\n"
