@@ -61,7 +61,7 @@ class App(customtkinter.CTk):
         self.tabview.tab("Operations").grid_columnconfigure(0, weight=1)
         self.tabview.tab("Login")
 
-        self.dqlLog = customtkinter.CTkButton(self.tabview.tab("Info"), text="Activate DQL Logs",
+        self.dqlLog = customtkinter.CTkButton(self.tabview.tab("Configs"), text="Activate DQL Logs",
                                               command=self.logRequest)
 
         self.dqlLog.grid(row=2, column=0, padx=20, pady=(10, 10))
@@ -77,6 +77,14 @@ class App(customtkinter.CTk):
         self.config = customtkinter.CTkButton(self.tabview.tab("Info"), text="Show config",
                                               command=self.configRequest)
         self.config.grid(row=5, column=0, padx=20, pady=(10, 10))
+
+        self.getCurrentUser = customtkinter.CTkButton(self.tabview.tab("Info"), text="Current User",
+                                                      command=self.getCurrentUserRequest)
+        self.getCurrentUser.grid(row=6, column=0, padx=20, pady=(10, 10))
+
+        self.health = customtkinter.CTkButton(self.tabview.tab("Info"), text="Health",
+                                              command=self.healthRequest)
+        self.health.grid(row=7, column=0, padx=20, pady=(10, 10))
 
         self.label_tab_2 = customtkinter.CTkLabel(self.tabview.tab(
             "Operations"), text="CTkLabel on Tab Operations")
@@ -254,6 +262,32 @@ class App(customtkinter.CTk):
         try:
             request = calls.MakeCall(
                 path="information/config", addr=self.addr).make_call()
+            self.insert_text_event(request)
+
+        except NameError:
+            error = f"Something else went wrong: {NameError}"
+            self.insert_text_event(error)
+        except Exception as e:
+            error = f"Something else went wrong: {e}"
+            self.insert_text_event(error)
+
+    def getCurrentUserRequest(self):
+        try:
+            request = calls.MakeCall(
+                path="information/currentUser", addr=self.addr).make_call()
+            self.insert_text_event(request)
+
+        except NameError:
+            error = f"Something else went wrong: {NameError}"
+            self.insert_text_event(error)
+        except Exception as e:
+            error = f"Something else went wrong: {e}"
+            self.insert_text_event(error)
+
+    def healthRequest(self):
+        try:
+            request = calls.MakeCall(
+                path="information/health", addr=self.addr).make_call()
             self.insert_text_event(request)
 
         except NameError:

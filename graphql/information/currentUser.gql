@@ -3,9 +3,6 @@
     name
     groups {
       name
-      users {
-        name
-      }
       rules {
         predicate
         permission
