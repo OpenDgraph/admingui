@@ -1,3 +1,19 @@
+#
+#  Copyright 2023 Dgraph Labs, Inc. and Contributors
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#
+
 import customtkinter
 from PIL import Image
 import calls
@@ -96,12 +112,12 @@ class App(customtkinter.CTk):
         self.label_tab_2.grid(row=0, column=0, padx=20, pady=20)
 
         self.draining = customtkinter.CTkButton(self.tabview.tab("Operations"), text="Set Draining",
-                                              command=self.drainingRequest)
+                                                command=self.drainingRequest)
 
         self.draining.grid(row=1, column=0, padx=20, pady=(10, 10))
 
         self.shutdown = customtkinter.CTkButton(self.tabview.tab("Operations"), text="Shutdown",
-                                              command=self.shutdownRequest)
+                                                command=self.shutdownRequest)
 
         self.shutdown.grid(row=2, column=0, padx=20, pady=(10, 10))
 
