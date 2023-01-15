@@ -59,36 +59,51 @@ class App(customtkinter.CTk):
         # configure grid of individual tabs
         self.tabview.tab("Info").grid_columnconfigure(0, weight=1)
         self.tabview.tab("Operations").grid_columnconfigure(0, weight=1)
+        self.tabview.tab("Configs").grid_columnconfigure(0, weight=1)
         self.tabview.tab("Login")
 
         self.dqlLog = customtkinter.CTkButton(self.tabview.tab("Configs"), text="Activate DQL Logs",
                                               command=self.logRequest)
 
-        self.dqlLog.grid(row=2, column=0, padx=20, pady=(10, 10))
+        self.dqlLog.grid(row=0, column=0, padx=20, pady=(10, 10))
+
+        self.label_tab_Info = customtkinter.CTkLabel(self.tabview.tab(
+            "Info"), text="General Cluster information")
+        self.label_tab_Info.grid(row=0, column=0, padx=20, pady=20)
 
         self.stateLog = customtkinter.CTkButton(self.tabview.tab("Info"), text="Show state",
                                                 command=self.stateRequest)
-        self.stateLog.grid(row=3, column=0, padx=20, pady=(10, 10))
+        self.stateLog.grid(row=1, column=0, padx=20, pady=(10, 10))
 
         self.queryGroup = customtkinter.CTkButton(self.tabview.tab("Info"), text="Show users in groups",
                                                   command=self.groupRequest)
-        self.queryGroup.grid(row=4, column=0, padx=20, pady=(10, 10))
+        self.queryGroup.grid(row=2, column=0, padx=20, pady=(10, 10))
 
         self.config = customtkinter.CTkButton(self.tabview.tab("Info"), text="Show config",
                                               command=self.configRequest)
-        self.config.grid(row=5, column=0, padx=20, pady=(10, 10))
+        self.config.grid(row=3, column=0, padx=20, pady=(10, 10))
 
         self.getCurrentUser = customtkinter.CTkButton(self.tabview.tab("Info"), text="Current User",
                                                       command=self.getCurrentUserRequest)
-        self.getCurrentUser.grid(row=6, column=0, padx=20, pady=(10, 10))
+        self.getCurrentUser.grid(row=4, column=0, padx=20, pady=(10, 10))
 
         self.health = customtkinter.CTkButton(self.tabview.tab("Info"), text="Health",
                                               command=self.healthRequest)
-        self.health.grid(row=7, column=0, padx=20, pady=(10, 10))
+        self.health.grid(row=5, column=0, padx=20, pady=(10, 10))
 
         self.label_tab_2 = customtkinter.CTkLabel(self.tabview.tab(
-            "Operations"), text="CTkLabel on Tab Operations")
+            "Operations"), text="Cluster Operations")
         self.label_tab_2.grid(row=0, column=0, padx=20, pady=20)
+
+        self.draining = customtkinter.CTkButton(self.tabview.tab("Operations"), text="Set Draining",
+                                              command=self.drainingRequest)
+
+        self.draining.grid(row=1, column=0, padx=20, pady=(10, 10))
+
+        self.shutdown = customtkinter.CTkButton(self.tabview.tab("Operations"), text="Shutdown",
+                                              command=self.shutdownRequest)
+
+        self.shutdown.grid(row=2, column=0, padx=20, pady=(10, 10))
 
         # create login
         self.login_frame = customtkinter.CTkFrame(
@@ -224,6 +239,30 @@ class App(customtkinter.CTk):
             }
             request = calls.MakeCall(
                 path="config/log", variables=variables, addr=self.addr).make_call()
+            self.insert_text_event(request)
+        except NameError:
+            error = f"Something else went wrong: {NameError}"
+            self.insert_text_event(error)
+        except Exception as e:
+            error = f"Something else went wrong: {e}"
+            self.insert_text_event(error)
+
+    def drainingRequest(self):
+        try:
+            request = calls.MakeCall(
+                path="operations/draining", addr=self.addr).make_call()
+            self.insert_text_event(request)
+        except NameError:
+            error = f"Something else went wrong: {NameError}"
+            self.insert_text_event(error)
+        except Exception as e:
+            error = f"Something else went wrong: {e}"
+            self.insert_text_event(error)
+
+    def shutdownRequest(self):
+        try:
+            request = calls.MakeCall(
+                path="operations/shutdown", addr=self.addr).make_call()
             self.insert_text_event(request)
         except NameError:
             error = f"Something else went wrong: {NameError}"
