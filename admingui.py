@@ -32,12 +32,13 @@ class App(customtkinter.CTk):
         self.addr = 'http://localhost:8080/admin' if _args.arguments.hostname == None else _args.arguments.hostname
         self.geometry('1115x900')
         self.resizable(True, True)
+        _args.arguments.JSON = False
 
         # self.grid_columnconfigure((2, 3), weight=0)
         # self.grid_rowconfigure((0, 1, 2), weight=1)
 
         # create textbox
-        Font_tuple = ('Consolas', 18, "bold")
+        Font_tuple = ('Courier', 16)
         self.textbox = customtkinter.CTkTextbox(self, width=800, height=750)
         self.textbox.configure(font=Font_tuple)
         self.textbox.grid(row=1, column=0, padx=(
@@ -51,6 +52,10 @@ class App(customtkinter.CTk):
                                                   command=copy_to_clipboard)
         self.JWT_button.grid(row=3, column=0, padx=5, pady=(5, 5), sticky="e")
         self.JWT_button.configure(state="disabled")
+
+        self.asjsonformat = customtkinter.CTkSwitch(self.textbox, text="Response as JSON", command=lambda: self.toggle_JSON())
+        self.asjsonformat.grid(row=3, column=0, pady=10, padx=10, sticky="w")
+        self.asjsonformat.configure( bg_color="#242424")
 
         # create url entry
         self.url_entry = customtkinter.CTkEntry(
@@ -80,7 +85,6 @@ class App(customtkinter.CTk):
 
         self.dqlLog = customtkinter.CTkButton(self.tabview.tab("Configs"), text="Activate DQL Logs",
                                               command=self.logRequest)
-
         self.dqlLog.grid(row=0, column=0, padx=20, pady=(10, 10))
 
         self.label_tab_Info = customtkinter.CTkLabel(self.tabview.tab(
@@ -160,6 +164,12 @@ class App(customtkinter.CTk):
         if _args.arguments.password != None:
             self.password_entry.insert(0, str(_args.arguments.password))
 
+    def toggle_JSON(self):
+        if _args.arguments.JSON != True:
+            _args.arguments.JSON = True
+        else:
+            _args.arguments.JSON = False
+
     def log_out(self):
         self.username_entry.delete(0, "end")
         self.password_entry.delete(0, "end")
@@ -219,16 +229,20 @@ class App(customtkinter.CTk):
 
         response = ""
 
-        for ii in range(len(myList)):
-            pattern = r"\'{}\': (.*?),".format(myList[ii])
-            matches = re.findall(pattern, str(payload[0]))
-            response += "——————————————\n"
-            if len(matches) > 0:
-                for i in range(len(matches)):
-                    response += f"{myList[ii]}: {matches[i].replace('}','').replace('{','').replace('[','').replace(']','')}\n"
-                    continue
+        if _args.arguments.JSON != True:
+            for ii in range(len(myList)):
+                pattern = r"\'{}\': (.*?),".format(myList[ii])
+                matches = re.findall(pattern, str(payload[0]))
+                response += "——————————————\n"
+                if len(matches) > 0:
+                    for i in range(len(matches)):
+                        response += f"{myList[ii]}: {matches[i].replace('}','').replace('{','').replace('[','').replace(']','')}\n"
+                        continue
+            _response = separators_constructor(payload, response)
+            self.line_break(_response)
+            return
 
-        _response = separators_constructor(payload, response)
+        _response = separators_constructor(payload[0], JSON=True)
 
         self.line_break(_response)
 

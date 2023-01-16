@@ -1,10 +1,21 @@
 import pyperclip
 import arguments as _args
+import json
 
 
-def separators_constructor(data, response=None):
+def separators_constructor(data, response=None, JSON=False):
     _response = ""
-    if "errors" in str(data):
+
+    if JSON is True:
+        endTime = data['extensions']['tracing']['endTime']
+        duration = data['extensions']['tracing']['duration']
+        duration = duration / 1000000
+        _data = json.dumps(data, indent=4, sort_keys=True)
+        _response = f"------------------ Response {list(data['data'].keys())} ------------------\n"
+        _response += f"{_data}\n"
+        _response += f'{response}\nDuration: {duration} ms\nEndTime: {endTime}\n'
+        _response += "------------------ End of Response ------------------\n\n"
+    elif "errors" in str(data):
         _response = "------------------      Error      ------------------\n"
         _response += f"{data['errors'][0]['message']}\n"
         _response += "------------------ End of Error ------------------\n"
