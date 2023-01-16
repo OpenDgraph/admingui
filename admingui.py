@@ -53,9 +53,10 @@ class App(customtkinter.CTk):
         self.JWT_button.grid(row=3, column=0, padx=5, pady=(5, 5), sticky="e")
         self.JWT_button.configure(state="disabled")
 
-        self.asjsonformat = customtkinter.CTkSwitch(self.textbox, text="Response as JSON", command=lambda: self.toggle_JSON())
+        self.asjsonformat = customtkinter.CTkSwitch(
+            self.textbox, text="Response as JSON", command=lambda: self.toggle_JSON())
         self.asjsonformat.grid(row=3, column=0, pady=10, padx=10, sticky="w")
-        self.asjsonformat.configure( bg_color="#242424")
+        self.asjsonformat.configure(bg_color="#242424")
 
         # create url entry
         self.url_entry = customtkinter.CTkEntry(
@@ -238,13 +239,11 @@ class App(customtkinter.CTk):
                     for i in range(len(matches)):
                         response += f"{myList[ii]}: {matches[i].replace('}','').replace('{','').replace('[','').replace(']','')}\n"
                         continue
-            _response = separators_constructor(payload, response)
+            _response = separators_constructor(payload, response, JSON=False)
             self.line_break(_response)
-            return
-
-        _response = separators_constructor(payload[0], JSON=True)
-
-        self.line_break(_response)
+        else:
+            _response = separators_constructor(payload[0], JSON=True)
+            self.line_break(_response)
 
     def create_event(self):
         group = self.group_entry.get() if self.group_entry.get() != "" else "default"

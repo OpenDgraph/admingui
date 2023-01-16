@@ -1,3 +1,19 @@
+#
+#  Copyright 2023 Dgraph Labs, Inc. and Contributors
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#
+
 from graphql.rundql import RunDQL
 import graphql.readgql as readgql
 import arguments as args
@@ -18,7 +34,7 @@ class MakeCall:
                 ' ', '').replace('}', '').replace('{', '')
         tree = list(filter(None, tree))
         if len(tree) > 2:
-            while "input" in tree[0] or "filter" in tree[0] or tree[0].endswith(")"):
+            while "mutation" in tree[0] or "input" in tree[0] or "filter" in tree[0] or "response" in tree[0] or ")" in tree[0] or tree[0].startswith("#"):
                 tree.pop(0)
         try:
             rungql = RunDQL(self.addr, 200, self.headers)
