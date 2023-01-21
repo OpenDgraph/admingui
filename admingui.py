@@ -421,7 +421,9 @@ class App(customtkinter.CTk):
     def open_input_CreateNamespace(self):
         dialogNP = customtkinter.CTkInputDialog(
             text="The PASSWORD of your new Namespace", title="Create a namespace")
-        password = str(dialogNP.get_input())
+        password = dialogNP.get_input()
+        if password == None or password == "":
+            return
         try:
             variables = {
                 "input": {"password": password}
@@ -438,11 +440,13 @@ class App(customtkinter.CTk):
 
     def open_input_DeleteNamespace(self):
         dialogDNP = customtkinter.CTkInputDialog(
-            text="Type the name ID", title="Delete namespace")
-        ID = int(dialogDNP.get_input())
+            text="Type the namespace ID", title="Delete namespace")
+        ID = dialogDNP.get_input()
+        if ID == None or ID == "":
+            return
         try:
             variables = {
-                "input": {"namespaceId": ID}
+                "input": {"namespaceId": int(ID)}
             }
             request = calls.MakeCall(
                 path="delete/deleteNamespace", variables=variables, addr=self.addr).make_call()
@@ -457,10 +461,12 @@ class App(customtkinter.CTk):
     def open_input_addGroup(self):
         dialogaddGroup = customtkinter.CTkInputDialog(
             text="Type the name of the Group", title="Create a Group")
-        name = str(dialogaddGroup.get_input())
+        name = dialogaddGroup.get_input()
+        if name == None or name == "":
+            return
         try:
             variables = {
-                "input": {"name": name}
+                "input": {"name": str(name)}
             }
             request = calls.MakeCall(
                 path="add/addGroup", variables=variables, addr=self.addr).make_call()
@@ -475,10 +481,12 @@ class App(customtkinter.CTk):
     def open_input_dialog_deleteGroup(self):
         dialogdeleteGroup = customtkinter.CTkInputDialog(
             text="Type the name of the Group", title="Delete Group")
-        name = str(dialogdeleteGroup.get_input())
+        name = dialogdeleteGroup.get_input()
+        if name == None or name == "":
+            return
         try:
             variables = {
-                "name": name
+                "name": str(name)
             }
             request = calls.MakeCall(
                 path="delete/deleteGroup", variables=variables, addr=self.addr).make_call()
@@ -491,12 +499,14 @@ class App(customtkinter.CTk):
             self.insert_text_event(error)
 
     def open_input_deleteUser(self):
-        dialogdeleteUser=customtkinter.CTkInputDialog(
-            text = "Type the User name to delete", title = "Delete User")
-        name = str(dialogdeleteUser.get_input())
+        dialogdeleteUser = customtkinter.CTkInputDialog(
+            text="Type the User name to delete", title="Delete User")
+        name = dialogdeleteUser.get_input()
+        if name == None or name == "":
+            return
         try:
             variables = {
-                "name": name
+                "name": str(name)
             }
             request = calls.MakeCall(
                 path="delete/deleteUser", variables=variables, addr=self.addr).make_call()
@@ -510,7 +520,7 @@ class App(customtkinter.CTk):
 
 
 def main():
-    app=App()
+    app = App()
     app.mainloop()
 
 
