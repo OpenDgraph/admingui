@@ -14,8 +14,8 @@
 #  limitations under the License.
 #
 
-mutation {
-  deleteNamespace(input: { password: "" }) {
+mutation ($input: DeleteNamespaceInput!) {
+  deleteNamespace(input: $input) {
     namespaceId
     message
   }

@@ -72,17 +72,55 @@ class App(customtkinter.CTk):
         self.tabview = customtkinter.CTkTabview(self, width=280, height=150)
         self.tabview.grid(row=1, column=2, padx=(9, 0),
                           pady=(2, 0), sticky="nsew")
+
         # Tabs
         self.tabview.add("Info")
         self.tabview.add("Operations")
         self.tabview.add("Configs")
-        self.tabview.add("Login")
+        self.tabview.add("ACL")
 
         # configure grid of individual tabs
         self.tabview.tab("Info").grid_columnconfigure(0, weight=1)
         self.tabview.tab("Operations").grid_columnconfigure(0, weight=1)
         self.tabview.tab("Configs").grid_columnconfigure(0, weight=1)
-        self.tabview.tab("Login")
+        self.tabview.tab("ACL").grid_columnconfigure(0, weight=1)
+
+        # create tabview for ACL
+        self.tabviewACL = customtkinter.CTkTabview(
+            self.tabview.tab("ACL"), width=250, height=650)
+        self.tabviewACL.grid(row=0, column=0, padx=(0, 0),
+                             pady=(0, 0), sticky="nsew")
+
+        self.tabviewACL.add("Login")
+        self.tabviewACL.add("Namespaces/others")
+
+        self.tabviewACL.tab(
+            "Namespaces/others").grid_columnconfigure(0, weight=1)
+        self.tabviewACL.tab("Login").grid_columnconfigure(0, weight=1)
+
+        # Namespaces tab
+
+        self.CreateNamespace = customtkinter.CTkButton(self.tabviewACL.tab("Namespaces/others"), text="Create Namespace",
+                                                       command=self.open_input_CreateNamespace)
+        self.CreateNamespace.grid(row=0, column=0, padx=20, pady=(30, 10))
+
+        self.DeleteNamespace = customtkinter.CTkButton(self.tabviewACL.tab("Namespaces/others"), text="Delete Namespace",
+                                                       command=self.open_input_DeleteNamespace)
+        self.DeleteNamespace.grid(row=1, column=0, padx=20, pady=(10, 10))
+
+        self.addGroup = customtkinter.CTkButton(self.tabviewACL.tab("Namespaces/others"), text="Add Group",
+                                                command=self.open_input_addGroup)
+        self.addGroup.grid(row=2, column=0, padx=20, pady=(10, 10))
+
+        self.deleteGroup = customtkinter.CTkButton(self.tabviewACL.tab("Namespaces/others"), text="Delete Group",
+                                                   command=self.open_input_dialog_deleteGroup)
+        self.deleteGroup.grid(row=3, column=0, padx=20, pady=(10, 10))
+
+        self.deleteUser = customtkinter.CTkButton(self.tabviewACL.tab("Namespaces/others"), text="Delete User",
+                                                  command=self.open_input_deleteUser)
+        self.deleteUser.grid(row=4, column=0, padx=20, pady=(10, 10))
+
+        # End of Namespaces tab
 
         self.dqlLog = customtkinter.CTkButton(self.tabview.tab("Configs"), text="Activate DQL Logs",
                                               command=self.logRequest)
@@ -128,7 +166,7 @@ class App(customtkinter.CTk):
 
         # create login
         self.login_frame = customtkinter.CTkFrame(
-            self.tabview.tab("Login"), corner_radius=0)
+            self.tabviewACL.tab("Login"), corner_radius=0)
         self.login_frame.pack(expand=True, fill="both", padx=0, pady=0)
         self.login_label = customtkinter.CTkLabel(self.login_frame, text="Dgraph ACL Login",
                                                   font=customtkinter.CTkFont(size=20, weight="bold"))
@@ -365,9 +403,114 @@ class App(customtkinter.CTk):
             error = f"Something else went wrong: {e}"
             self.insert_text_event(error)
 
+    def CreateNamespace(self, password=None):
+        try:
+            variables = {
+                "input": {"password": password}
+            }
+            request = calls.MakeCall(
+                path="add/addNamespace", variables=variables, addr=self.addr).make_call()
+            self.insert_text_event(request)
+        except NameError:
+            error = f"Something else went wrong: {NameError}"
+            self.insert_text_event(error)
+        except Exception as e:
+            error = f"Something else went wrong: {e}"
+            self.insert_text_event(error)
+
+    def open_input_CreateNamespace(self):
+        dialogNP = customtkinter.CTkInputDialog(
+            text="The PASSWORD of your new Namespace", title="Create a namespace")
+        password = str(dialogNP.get_input())
+        try:
+            variables = {
+                "input": {"password": password}
+            }
+            request = calls.MakeCall(
+                path="add/addNamespace", variables=variables, addr=self.addr).make_call()
+            self.insert_text_event(request)
+        except NameError:
+            error = f"Something else went wrong: {NameError}"
+            self.insert_text_event(error)
+        except Exception as e:
+            error = f"Something else went wrong: {e}"
+            self.insert_text_event(error)
+
+    def open_input_DeleteNamespace(self):
+        dialogDNP = customtkinter.CTkInputDialog(
+            text="Type the name ID", title="Delete namespace")
+        ID = int(dialogDNP.get_input())
+        try:
+            variables = {
+                "input": {"namespaceId": ID}
+            }
+            request = calls.MakeCall(
+                path="delete/deleteNamespace", variables=variables, addr=self.addr).make_call()
+            self.insert_text_event(request)
+        except NameError:
+            error = f"Something else went wrong: {NameError}"
+            self.insert_text_event(error)
+        except Exception as e:
+            error = f"Something else went wrong: {e}"
+            self.insert_text_event(error)
+
+    def open_input_addGroup(self):
+        dialogaddGroup = customtkinter.CTkInputDialog(
+            text="Type the name of the Group", title="Create a Group")
+        name = str(dialogaddGroup.get_input())
+        try:
+            variables = {
+                "input": {"name": name}
+            }
+            request = calls.MakeCall(
+                path="add/addGroup", variables=variables, addr=self.addr).make_call()
+            self.insert_text_event(request)
+        except NameError:
+            error = f"Something else went wrong: {NameError}"
+            self.insert_text_event(error)
+        except Exception as e:
+            error = f"Something else went wrong: {e}"
+            self.insert_text_event(error)
+
+    def open_input_dialog_deleteGroup(self):
+        dialogdeleteGroup = customtkinter.CTkInputDialog(
+            text="Type the name of the Group", title="Delete Group")
+        name = str(dialogdeleteGroup.get_input())
+        try:
+            variables = {
+                "name": name
+            }
+            request = calls.MakeCall(
+                path="delete/deleteGroup", variables=variables, addr=self.addr).make_call()
+            self.insert_text_event(request)
+        except NameError:
+            error = f"Something else went wrong: {NameError}"
+            self.insert_text_event(error)
+        except Exception as e:
+            error = f"Something else went wrong: {e}"
+            self.insert_text_event(error)
+
+    def open_input_deleteUser(self):
+        dialogdeleteUser=customtkinter.CTkInputDialog(
+            text = "Type the User name to delete", title = "Delete User")
+        name = str(dialogdeleteUser.get_input())
+        try:
+            variables = {
+                "name": name
+            }
+            request = calls.MakeCall(
+                path="delete/deleteUser", variables=variables, addr=self.addr).make_call()
+            self.insert_text_event(request)
+        except NameError:
+            error = f"Something else went wrong: {NameError}"
+            self.insert_text_event(error)
+        except Exception as e:
+            error = f"Something else went wrong: {e}"
+            self.insert_text_event(error)
+
 
 def main():
-    app = App()
+    app=App()
     app.mainloop()
 
 

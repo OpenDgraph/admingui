@@ -14,8 +14,8 @@
 #  limitations under the License.
 #
 
-mutation {
-  addGroup(input: { name: "", rules: { permission: 1, predicate: "" } }) {
+mutation ($input: [AddGroupInput!]!) {
+  addGroup(input: $input) {
     group {
       name
       users {

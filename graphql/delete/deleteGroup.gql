@@ -13,16 +13,13 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
+# name: { eq: "" }
+# and: { name: { eq: "" } }
+# or: { name: { eq: "" } }
+# not: { name: { eq: "" } }
 
-mutation {
-  deleteGroup(
-    filter: {
-      name: { eq: "" }
-      and: { name: { eq: "" } }
-      or: { name: { eq: "" } }
-      not: { name: { eq: "" } }
-    }
-  ) {
+mutation ($name: String) {
+  deleteGroup(filter: { name: { eq: $name } }) {
     msg
     numUids
   }

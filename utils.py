@@ -49,7 +49,7 @@ def separators_constructor(data, response=None, JSON=False):
         _response += f'{response}\nDuration: {duration} ms\nEndTime: {endTime}\n'
         _response += "------------------ End of Response ------------------\n\n"
     if "Unauthenticated" in str(data) or "PermissionDenied" in str(data):
-        _response += "Try to login in the login tab\n"
+        _response += "Try to login in the ACL tab and Login sub tab\n"
     return _response
 
 

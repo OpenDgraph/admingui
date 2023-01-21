@@ -14,8 +14,8 @@
 #  limitations under the License.
 #
 
-mutation {
-  addNamespace(input: { password: "" }) {
+mutation ($input: AddNamespaceInput) {
+  addNamespace(input: $input) {
     namespaceId
     message
   }
